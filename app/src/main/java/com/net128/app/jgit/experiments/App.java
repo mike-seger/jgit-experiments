@@ -34,24 +34,20 @@ public class App {
             ResourceUtils.copyResources("/csv",csvDest);
             git.add().addFilepattern(".").call();
             git.commit().setMessage("Initial commit").call();
+            git.tag().setName("Version-0").setForceUpdate(true).call();
             ObjectId initialCommitId = git.getRepository().resolve(Constants.HEAD);
 
-            ResourceUtils.copyResources("/csv_mod/CITY.csv", new File(csvDest,"CITY.csv"));
-            git.add().addFilepattern(".").call();
-            git.commit().setMessage("Modified CITY.csv").call();
+            Thread.sleep(1000);
+            replaceCsvAndCommit(git,"/csv_mod/CITY.csv", csvDest);
             git.tag().setName("Version-1").setForceUpdate(true).call();
 
             Thread.sleep(2000);
-            ResourceUtils.copyResources("/csv_mod/COUNTRY_CODES.csv", new File(csvDest,"COUNTRY_CODES.csv"));
-            git.add().addFilepattern(".").call();
-            git.commit().setMessage("Modified COUNTRY_CODES.csv").call();
+            replaceCsvAndCommit(git,"/csv_mod/COUNTRY_CODES.csv", csvDest);
             git.tag().setName("Version-2").setForceUpdate(true).call();
 
             Thread.sleep(2000);
-            ResourceUtils.copyResources("/csv_mod2/CITY.csv", new File(csvDest,"CITY.csv"));
-            ResourceUtils.copyResources("/csv_mod2/COUNTRY_CODES.csv", new File(csvDest,"COUNTRY_CODES.csv"));
-            git.add().addFilepattern(".").call();
-            git.commit().setMessage("Modified COUNTRY_CODES.csv").call();
+            replaceCsvAndCommit(git,"/csv_mod2/COUNTRY_CODES.csv", csvDest);
+            replaceCsvAndCommit(git,"/csv_mod2/CITY.csv", csvDest);
             git.tag().setName("Version-2").setForceUpdate(true).call();
 
             Thread.sleep(2000);
@@ -66,6 +62,14 @@ public class App {
             showFileCommits(git, "csv/CITY.csv");
             showFileCommits(git, "csv/COUNTRY_CODES.csv");
         }
+    }
+
+    private void replaceCsvAndCommit(Git git, String csv, File destDir) throws GitAPIException, IOException, URISyntaxException {
+        var destName = csv.substring(csv.lastIndexOf("/")+1);
+        ResourceUtils.copyResources(csv, new File(destDir, destName));
+
+        git.add().addFilepattern(".").call();
+        git.commit().setMessage("Modified "+destName).call();
     }
 
     private void showFileCommits(Git git, String filePath) throws IOException, GitAPIException {
