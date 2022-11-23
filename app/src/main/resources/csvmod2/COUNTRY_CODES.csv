@@ -1,0 +1,251 @@
+name,alpha2,alpha3,region,sub_region,region_code,sub_region_code
+Afghanistan,AF,AFG,Asia,Southern Asia,142,034
+Åland Islands,AX,ALA,Europe,Northern Europe,150,154
+Albania,AL,ALB,Europe,Southern Europe,150,039
+Algeria,DZ,DZA,Africa,Northern Africa,002,015
+American Samoa,AS,ASM,Oceania,Polynesia,009,061
+Andorra,AD,AND,Europe,Southern Europe,150,039
+Angola,AO,AGO,Africa,Sub-Saharan Africa,002,202
+Anguilla,AI,AIA,Americas,Latin America and the Caribbean,019,419
+Antarctica,AQ,ATA,Antarctica,Antarctica,999,999
+Antigua and Barbuda,AG,ATG,Americas,Latin America and the Caribbean,019,419
+Antilles,AN,ANT,Americas,Latin America and the Caribbean,019,419
+Argentina,AR,ARG,Americas,Latin America and the Caribbean,019,419
+Armenia,AM,ARM,Asia,Western Asia,142,145
+Aruba,AW,ABW,Americas,Latin America and the Caribbean,019,419
+Australia,AU,AUS,Oceania,Australia and New Zealand,009,053
+Austria,AT,AUT,Europe,Western Europe,150,155
+Azerbaijan,AZ,AZE,Asia,Western Asia,142,145
+Bahamas,BS,BHS,Americas,Latin America and the Caribbean,019,419
+Bahrain,BH,BHR,Asia,Western Asia,142,145
+Bangladesh,BD,BGD,Asia,Southern Asia,142,034
+Barbados,BB,BRB,Americas,Latin America and the Caribbean,019,419
+Belarus,BY,BLR,Europe,Eastern Europe,150,151
+Belgium,BE,BEL,Europe,Western Europe,150,155
+Belize,BZ,BLZ,Americas,Latin America and the Caribbean,019,419
+Benin,BJ,BEN,Africa,Sub-Saharan Africa,002,202
+Bermuda,BM,BMU,Americas,Northern America,019,021
+Bhutan,BT,BTN,Asia,Southern Asia,142,034
+Bolivia (Plurinational State of),BO,BOL,Americas,Latin America and the Caribbean,019,419
+"Bonaire, Sint Eustatius and Saba",BQ,BES,Americas,Latin America and the Caribbean,019,419
+Bosnia and Herzegovina,BA,BIH,Europe,Southern Europe,150,039
+Botswana,BW,BWA,Africa,Sub-Saharan Africa,002,202
+Bouvet Island,BV,BVT,Americas,Latin America and the Caribbean,019,419
+Brazil,BR,BRA,Americas,Latin America and the Caribbean,019,419
+British Indian Ocean Territory,IO,IOT,Africa,Sub-Saharan Africa,002,202
+Brunei Darussalam,BN,BRN,Asia,South-eastern Asia,142,035
+Bulgaria,BG,BGR,Europe,Eastern Europe,150,151
+Burkina Faso,BF,BFA,Africa,Sub-Saharan Africa,002,202
+Burundi,BI,BDI,Africa,Sub-Saharan Africa,002,202
+Cabo Verde,CV,CPV,Africa,Sub-Saharan Africa,002,202
+Cambodia,KH,KHM,Asia,South-eastern Asia,142,035
+Cameroon,CM,CMR,Africa,Sub-Saharan Africa,002,202
+Canada,CA,CAN,Americas,Northern America,019,021
+Cayman Islands,KY,CYM,Americas,Latin America and the Caribbean,019,419
+Central African Republic,CF,CAF,Africa,Sub-Saharan Africa,002,202
+Chad,TD,TCD,Africa,Sub-Saharan Africa,002,202
+Chile,CL,CHL,Americas,Latin America and the Caribbean,019,419
+China,CN,CHN,Asia,Eastern Asia,142,030
+Christmas Island,CX,CXR,Oceania,Australia and New Zealand,009,053
+Cocos (Keeling) Islands,CC,CCK,Oceania,Australia and New Zealand,009,053
+Colombia,CO,COL,Americas,Latin America and the Caribbean,019,419
+Comoros,KM,COM,Africa,Sub-Saharan Africa,002,202
+Congo,CG,COG,Africa,Sub-Saharan Africa,002,202
+"Congo, Democratic Republic of the",CD,COD,Africa,Sub-Saharan Africa,002,202
+Cook Islands,CK,COK,Oceania,Polynesia,009,061
+Costa Rica,CR,CRI,Americas,Latin America and the Caribbean,019,419
+Côte d'Ivoire,CI,CIV,Africa,Sub-Saharan Africa,002,202
+Croatia,HR,HRV,Europe,Southern Europe,150,039
+Cuba,CU,CUB,Americas,Latin America and the Caribbean,019,419
+Curaçao,CW,CUW,Americas,Latin America and the Caribbean,019,419
+Cyprus,CY,CYP,Asia,Western Asia,142,145
+Czechia,CZ,CZE,Europe,Eastern Europe,150,151
+Denmark,DK,DNK,Europe,Northern Europe,150,154
+Djibouti,DJ,DJI,Africa,Sub-Saharan Africa,002,202
+Dominica,DM,DMA,Americas,Latin America and the Caribbean,019,419
+Dominican Republic,DO,DOM,Americas,Latin America and the Caribbean,019,419
+Ecuador,EC,ECU,Americas,Latin America and the Caribbean,019,419
+Egypt,EG,EGY,Africa,Northern Africa,002,015
+El Salvador,SV,SLV,Americas,Latin America and the Caribbean,019,419
+Equatorial Guinea,GQ,GNQ,Africa,Sub-Saharan Africa,002,202
+Eritrea,ER,ERI,Africa,Sub-Saharan Africa,002,202
+Estonia,EE,EST,Europe,Northern Europe,150,154
+Eswatini,SZ,SWZ,Africa,Sub-Saharan Africa,002,202
+Ethiopia,ET,ETH,Africa,Sub-Saharan Africa,002,202
+Falkland Islands (Malvinas),FK,FLK,Americas,Latin America and the Caribbean,019,419
+Faroe Islands,FO,FRO,Europe,Northern Europe,150,154
+Fiji,FJ,FJI,Oceania,Melanesia,009,054
+Finland,FI,FIN,Europe,Northern Europe,150,154
+France,FR,FRA,Europe,Western Europe,150,155
+French Guiana,GF,GUF,Americas,Latin America and the Caribbean,019,419
+French Polynesia,PF,PYF,Oceania,Polynesia,009,061
+French Southern Territories,TF,ATF,Africa,Sub-Saharan Africa,002,202
+Gabon,GA,GAB,Africa,Sub-Saharan Africa,002,202
+Gambia,GM,GMB,Africa,Sub-Saharan Africa,002,202
+Georgia,GE,GEO,Asia,Western Asia,142,145
+Germany,DE,DEU,Europe,Western Europe,150,155
+Ghana,GH,GHA,Africa,Sub-Saharan Africa,002,202
+Gibraltar,GI,GIB,Europe,Southern Europe,150,039
+Greece,GR,GRC,Europe,Southern Europe,150,039
+Greenland,GL,GRL,Americas,Northern America,019,021
+Grenada,GD,GRD,Americas,Latin America and the Caribbean,019,419
+Guadeloupe,GP,GLP,Americas,Latin America and the Caribbean,019,419
+Guam,GU,GUM,Oceania,Micronesia,009,057
+Guatemala,GT,GTM,Americas,Latin America and the Caribbean,019,419
+Guernsey,GG,GGY,Europe,Northern Europe,150,154
+Guinea,GN,GIN,Africa,Sub-Saharan Africa,002,202
+Guinea-Bissau,GW,GNB,Africa,Sub-Saharan Africa,002,202
+Guyana,GY,GUY,Americas,Latin America and the Caribbean,019,419
+Haiti,HT,HTI,Americas,Latin America and the Caribbean,019,419
+Heard Island and McDonald Islands,HM,HMD,Oceania,Australia and New Zealand,009,053
+Holy See,VA,VAT,Europe,Southern Europe,150,039
+Honduras,HN,HND,Americas,Latin America and the Caribbean,019,419
+Hong Kong,HK,HKG,Asia,Eastern Asia,142,030
+Hungary,HU,HUN,Europe,Eastern Europe,150,151
+Iceland,IS,ISL,Europe,Northern Europe,150,154
+India,IN,IND,Asia,Southern Asia,142,034
+Indonesia,ID,IDN,Asia,South-eastern Asia,142,035
+Iran (Islamic Republic of),IR,IRN,Asia,Southern Asia,142,034
+Iraq,IQ,IRQ,Asia,Western Asia,142,145
+Ireland,IE,IRL,Europe,Northern Europe,150,154
+Isle of Man,IM,IMN,Europe,Northern Europe,150,154
+Israel,IL,ISR,Asia,Western Asia,142,145
+Italy,IT,ITA,Europe,Southern Europe,150,039
+Jamaica,JM,JAM,Americas,Latin America and the Caribbean,019,419
+Japan,JP,JPN,Asia,Eastern Asia,142,030
+Jersey,JE,JEY,Europe,Northern Europe,150,154
+Jordan,JO,JOR,Asia,Western Asia,142,145
+Kazakhstan,KZ,KAZ,Asia,Central Asia,142,143
+Kenya,KE,KEN,Africa,Sub-Saharan Africa,002,202
+Kiribati,KI,KIR,Oceania,Micronesia,009,057
+Korea (Democratic People's Republic of),KP,PRK,Asia,Eastern Asia,142,030
+"Korea, Republic of",KR,KOR,Asia,Eastern Asia,142,030
+Kuwait,KW,KWT,Asia,Western Asia,142,145
+Kyrgyzstan,KG,KGZ,Asia,Central Asia,142,143
+Lao People's Democratic Republic,LA,LAO,Asia,South-eastern Asia,142,035
+Latvia,LV,LVA,Europe,Northern Europe,150,154
+Lebanon,LB,LBN,Asia,Western Asia,142,145
+Lesotho,LS,LSO,Africa,Sub-Saharan Africa,002,202
+Liberia,LR,LBR,Africa,Sub-Saharan Africa,002,202
+Libya,LY,LBY,Africa,Northern Africa,002,015
+Liechtenstein,LI,LIE,Europe,Western Europe,150,155
+Lithuania,LT,LTU,Europe,Northern Europe,150,154
+Luxembourg,LU,LUX,Europe,Western Europe,150,155
+Macao,MO,MAC,Asia,Eastern Asia,142,030
+Madagascar,MG,MDG,Africa,Sub-Saharan Africa,002,202
+Malawi,MW,MWI,Africa,Sub-Saharan Africa,002,202
+Malaysia,MY,MYS,Asia,South-eastern Asia,142,035
+Maldives,MV,MDV,Asia,Southern Asia,142,034
+Mali,ML,MLI,Africa,Sub-Saharan Africa,002,202
+Malta,MT,MLT,Europe,Southern Europe,150,039
+Marshall Islands,MH,MHL,Oceania,Micronesia,009,057
+Martinique,MQ,MTQ,Americas,Latin America and the Caribbean,019,419
+Mauritania,MR,MRT,Africa,Sub-Saharan Africa,002,202
+Mauritius,MU,MUS,Africa,Sub-Saharan Africa,002,202
+Mayotte,YT,MYT,Africa,Sub-Saharan Africa,002,202
+Mexico,MX,MEX,Americas,Latin America and the Caribbean,019,419
+Micronesia (Federated States of),FM,FSM,Oceania,Micronesia,009,057
+"Moldova, Republic of",MD,MDA,Europe,Eastern Europe,150,151
+Monaco,MC,MCO,Europe,Western Europe,150,155
+Mongolia,MN,MNG,Asia,Eastern Asia,142,030
+Montenegro,ME,MNE,Europe,Southern Europe,150,039
+Montserrat,MS,MSR,Americas,Latin America and the Caribbean,019,419
+Morocco,MA,MAR,Africa,Northern Africa,002,015
+Mozambique,MZ,MOZ,Africa,Sub-Saharan Africa,002,202
+Myanmar,MM,MMR,Asia,South-eastern Asia,142,035
+Namibia,NA,NAM,Africa,Sub-Saharan Africa,002,202
+Nauru,NR,NRU,Oceania,Micronesia,009,057
+Nepal,NP,NPL,Asia,Southern Asia,142,034
+Netherlands,NL,NLD,Europe,Western Europe,150,155
+New Caledonia,NC,NCL,Oceania,Melanesia,009,054
+New Zealand,NZ,NZL,Oceania,Australia and New Zealand,009,053
+Nicaragua,NI,NIC,Americas,Latin America and the Caribbean,019,419
+Niger,NE,NER,Africa,Sub-Saharan Africa,002,202
+Nigeria,NG,NGA,Africa,Sub-Saharan Africa,002,202
+Niue,NU,NIU,Oceania,Polynesia,009,061
+Norfolk Island,NF,NFK,Oceania,Australia and New Zealand,009,053
+North Macedonia,MK,MKD,Europe,Southern Europe,150,039
+Northern Mariana Islands,MP,MNP,Oceania,Micronesia,009,057
+Norway,NO,NOR,Europe,Northern Europe,150,154
+Oman,OM,OMN,Asia,Western Asia,142,145
+Pakistan,PK,PAK,Asia,Southern Asia,142,034
+Palau,PW,PLW,Oceania,Micronesia,009,057
+"Palestine, State of",PS,PSE,Asia,Western Asia,142,145
+Panama,PA,PAN,Americas,Latin America and the Caribbean,019,419
+Papua New Guinea,PG,PNG,Oceania,Melanesia,009,054
+Paraguay,PY,PRY,Americas,Latin America and the Caribbean,019,419
+Peru,PE,PER,Americas,Latin America and the Caribbean,019,419
+Philippines,PH,PHL,Asia,South-eastern Asia,142,035
+Pitcairn,PN,PCN,Oceania,Polynesia,009,061
+Poland,PL,POL,Europe,Eastern Europe,150,151
+Portugal,PT,PRT,Europe,Southern Europe,150,039
+Puerto Rico,PR,PRI,Americas,Latin America and the Caribbean,019,419
+Qatar,QA,QAT,Asia,Western Asia,142,145
+Réunion,RE,REU,Africa,Sub-Saharan Africa,002,202
+Romania,RO,ROU,Europe,Eastern Europe,150,151
+Russian Federation,RU,RUS,Europe,Eastern Europe,150,151
+Rwanda,RW,RWA,Africa,Sub-Saharan Africa,002,202
+Saint Barthélemy,BL,BLM,Americas,Latin America and the Caribbean,019,419
+"Saint Helena, Ascension and Tristan da Cunha",SH,SHN,Africa,Sub-Saharan Africa,002,202
+Saint Kitts and Nevis,KN,KNA,Americas,Latin America and the Caribbean,019,419
+Saint Lucia,LC,LCA,Americas,Latin America and the Caribbean,019,419
+Saint Martin (French part),MF,MAF,Americas,Latin America and the Caribbean,019,419
+Saint Pierre and Miquelon,PM,SPM,Americas,Northern America,019,021
+Saint Vincent and the Grenadines,VC,VCT,Americas,Latin America and the Caribbean,019,419
+Samoa,WS,WSM,Oceania,Polynesia,009,061
+San Marino,SM,SMR,Europe,Southern Europe,150,039
+Sao Tome and Principe,ST,STP,Africa,Sub-Saharan Africa,002,202
+Saudi Arabia,SA,SAU,Asia,Western Asia,142,145
+Senegal,SN,SEN,Africa,Sub-Saharan Africa,002,202
+Serbia,RS,SRB,Europe,Southern Europe,150,039
+Seychelles,SC,SYC,Africa,Sub-Saharan Africa,002,202
+Sierra Leone,SL,SLE,Africa,Sub-Saharan Africa,002,202
+Singapore,SG,SGP,Asia,South-eastern Asia,142,035
+Sint Maarten (Dutch part),SX,SXM,Americas,Latin America and the Caribbean,019,419
+Slovakia,SK,SVK,Europe,Eastern Europe,150,151
+Slovenia,SI,SVN,Europe,Southern Europe,150,039
+Solomon Islands,SB,SLB,Oceania,Melanesia,009,054
+Somalia,SO,SOM,Africa,Sub-Saharan Africa,002,202
+South Africa,ZA,ZAF,Africa,Sub-Saharan Africa,002,202
+South Georgia and the South Sandwich Islands,GS,SGS,Americas,Latin America and the Caribbean,019,419
+South Sudan,SS,SSD,Africa,Sub-Saharan Africa,002,202
+Spain,ES,ESP,Europe,Southern Europe,150,039
+Sri Lanka,LK,LKA,Asia,Southern Asia,142,034
+Sudan,SD,SDN,Africa,Northern Africa,002,015
+Suriname,SR,SUR,Americas,Latin America and the Caribbean,019,419
+Svalbard and Jan Mayen,SJ,SJM,Europe,Northern Europe,150,154
+Sweden,SE,SWE,Europe,Northern Europe,150,154
+Switzerland,CH,CHE,Europe,Western Europe,150,155
+Syrian Arab Republic,SY,SYR,Asia,Western Asia,142,145
+"Taiwan, Province of China",TW,TWN,Asia,Eastern Asia,142,030
+Tajikistan,TJ,TJK,Asia,Central Asia,142,143
+"Tanzania, United Republic of",TZ,TZA,Africa,Sub-Saharan Africa,002,202
+Thailand,TH,THA,Asia,South-eastern Asia,142,035
+Timor-Leste,TL,TLS,Asia,South-eastern Asia,142,035
+Togo,TG,TGO,Africa,Sub-Saharan Africa,002,202
+Tokelau,TK,TKL,Oceania,Polynesia,009,061
+Tonga,TO,TON,Oceania,Polynesia,009,061
+Trinidad and Tobago,TT,TTO,Americas,Latin America and the Caribbean,019,419
+Tunisia,TN,TUN,Africa,Northern Africa,002,015
+Turkey,TR,TUR,Asia,Western Asia,142,145
+Turkmenistan,TM,TKM,Asia,Central Asia,142,143
+Turks and Caicos Islands,TC,TCA,Americas,Latin America and the Caribbean,019,419
+Tuvalu,TV,TUV,Oceania,Polynesia,009,061
+Uganda,UG,UGA,Africa,Sub-Saharan Africa,002,202
+Ukraine,UA,UKR,Europe,Eastern Europe,150,151
+United Arab Emirates,AE,ARE,Asia,Western Asia,142,145
+United Kingdom of Great Britain and Northern Ireland,GB,GBR,Europe,Northern Europe,150,154
+United States of America,US,USA,Americas,Northern America,019,021
+United States Minor Outlying Islands,UM,UMI,Oceania,Micronesia,009,057
+Uruguay,UY,URY,Americas,Latin America and the Caribbean,019,419
+Uzbekistan,UZ,UZB,Asia,Central Asia,142,143
+Vanuatu,VU,VUT,Oceania,Melanesia,009,054
+Venezuela (Bolivarian Republic of),VE,VEN,Americas,Latin America and the Caribbean,019,419
+Viet Nam,VN,VNM,Asia,South-eastern Asia,142,035
+Virgin Islands (British),VG,VGB,Americas,Latin America and the Caribbean,019,419
+Virgin Islands (U.S.),VI,VIR,Americas,Latin America and the Caribbean,019,419
+Wallis and Futuna,WF,WLF,Oceania,Polynesia,009,061
+Western Sahara,EH,ESH,Africa,Northern Africa,002,015
+Yemen,YE,YEM,Asia,Western Asia,142,145
+Zambia,ZM,ZMB,Africa,Sub-Saharan Africa,002,202
+Zimbabwe,ZW,ZWE,Africa,Sub-Saharan Africa,002,202
