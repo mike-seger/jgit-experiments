@@ -4,102 +4,110 @@
 package com.net128.app.jgit.experiments;
 
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.Status;
+import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.diff.DiffFormatter;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
 import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.revwalk.*;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.util.io.DisabledOutputStream;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevWalk;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.Instant;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, IllegalStateException, GitAPIException, URISyntaxException {
+    public static void main(String[] args) throws IOException, IllegalStateException, GitAPIException, URISyntaxException, InterruptedException {
         new App().run(args);
     }
 
-    public void run(String[] args) throws GitAPIException, IOException, URISyntaxException {
+    public void run(String[] args) throws GitAPIException, IOException, URISyntaxException, InterruptedException {
         final var gitDirectory = new File(System.getProperty("java.io.tmpdir"), "JGitTestRepository");
         final var csvDest = new File(gitDirectory,"csv");
         ResourceUtils.deleteDirectory(gitDirectory);
-        //if(! localDirectory.mkdir()) throw new RuntimeException("Failed to create "+localDirectory);
         try (Git git = Git.init().setDirectory(gitDirectory).call()) {
             System.out.println("Created repository: " + git.getRepository().getDirectory());
             ResourceUtils.copyResources("/csv",csvDest);
             git.add().addFilepattern(".").call();
             git.commit().setMessage("Initial commit").call();
+            ObjectId initialCommitId = git.getRepository().resolve(Constants.HEAD);
+
             ResourceUtils.copyResources("/csvmod/CITY.csv", new File(csvDest,"CITY.csv"));
             git.add().addFilepattern(".").call();
             git.commit().setMessage("Modified CITY.csv").call();
             git.tag().setName("Version-1").setForceUpdate(true).call();
 
+            Thread.sleep(2000);
             ResourceUtils.copyResources("/csvmod/COUNTRY_CODES.csv", new File(csvDest,"COUNTRY_CODES.csv"));
             git.add().addFilepattern(".").call();
             git.commit().setMessage("Modified COUNTRY_CODES.csv").call();
             git.tag().setName("Version-2").setForceUpdate(true).call();
 
+            Thread.sleep(2000);
             ResourceUtils.copyResources("/csvmod2/CITY.csv", new File(csvDest,"CITY.csv"));
             ResourceUtils.copyResources("/csvmod2/COUNTRY_CODES.csv", new File(csvDest,"COUNTRY_CODES.csv"));
             git.add().addFilepattern(".").call();
             git.commit().setMessage("Modified COUNTRY_CODES.csv").call();
             git.tag().setName("Version-2").setForceUpdate(true).call();
 
-            Iterable<RevCommit> commits = git.log().call();
-            for (RevCommit commit : commits) {
-                Map<ObjectId, String> namedCommits = git.nameRev().addPrefix("refs/tags/").add(commit).call();
-                /*if (namedCommits.containsKey(commit.getId()))*/ {
-                    System.out.println("tag " + namedCommits.get(commit.getId()) + " -> " + commit.getFullMessage() + " :" + Instant.ofEpochMilli(commit.getCommitTime()*1000L).toString() + " - " + commit);
-                }
-            }
+            Thread.sleep(2000);
+            git.checkout().setName(initialCommitId.getName()).addPath(".").call();
+            git.add().addFilepattern(".").call();
+            git.commit().setMessage("Reverted to initial version").call();
+            git.tag().setName("Version-3").setForceUpdate(true).call();
 
-            List<String> tags = new ArrayList<>();
-            //var tagList = git.tagList().call();
-            for (Ref tag: git.tagList().call()) {
-                RevWalk revWalk = new RevWalk(git.getRepository());
-                revWalk.sort(RevSort.COMMIT_TIME_DESC, true);
-                try {/*  w  ww  .java2s.c  om*/
-                    RevTag annotatedTag = revWalk.parseTag(tag.getObjectId());
-                    tag = git.getRepository().getRefDatabase().peel(tag);
-                    tags.add(annotatedTag.getTagName() + " : " + annotatedTag.getFullMessage());
-                } catch (IncorrectObjectTypeException ex) {
-                    tags.add(tag.getName().substring("refs/tags/".length()));
-                }
-            }
-            System.out.println(tags);
-            showTagDiff(git,"Version-1", "Version-2");
+            showTagCommits(git);
+
+            showFileCommits(git, "csv/CAR.csv");
+            showFileCommits(git, "csv/CITY.csv");
+            showFileCommits(git, "csv/COUNTRY_CODES.csv");
         }
     }
 
-    private void showTagDiff(Git git, String tag1, String tag2) throws IOException {
-        ObjectReader reader = git.getRepository().newObjectReader();
-        CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
-        ObjectId oldTree = git.getRepository().resolve(  "HEAD~1^{tree}" );
-        oldTreeIter.reset( reader, oldTree );
-        CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
-        ObjectId newTree = git.getRepository().resolve(  "HEAD^{tree}" );
-        newTreeIter.reset( reader, newTree );
+    private void showFileCommits(Git git, String filePath) throws IOException, GitAPIException {
+        System.out.println("\nFile Commits: "+filePath);
+        LogCommand logCommand = git.log()
+                .add(git.getRepository().resolve(Constants.HEAD))
+                .addPath(filePath);
 
-        DiffFormatter diffFormatter = new DiffFormatter( DisabledOutputStream.INSTANCE );
-        diffFormatter.setRepository(git.getRepository() );
-        List<DiffEntry> entries = diffFormatter.scan( oldTreeIter, newTreeIter );
-
-        for( DiffEntry entry : entries ) {
-            System.out.println( entry );
-            //System.out.println( entry.getChangeType() );
+        for (RevCommit revCommit : logCommand.call()) {
+            System.out.println(commitInfo(revCommit));
         }
     }
+
+    private void showTagCommits(Git git) throws IOException, GitAPIException {
+        Repository repository = git.getRepository();
+        System.out.print("\nTag Commits");
+        List<Ref> call = git.tagList().call();
+        for (Ref ref : call) {
+            System.out.println("\n    Tag: " + ref.getName() + " " + ref.getObjectId().getName());
+
+            Ref peeledRef = git.getRepository().getRefDatabase().peel(ref);
+
+            ObjectId commitId;
+            if(peeledRef.getPeeledObjectId() != null) {
+                commitId = peeledRef.getPeeledObjectId();
+            } else {
+                commitId = ref.getObjectId();
+            }
+
+            try (RevWalk revWalk = new RevWalk(repository)) {
+                RevCommit commit = revWalk.parseCommit(commitId);
+                System.out.println("    "+commitInfo(commit));
+            }
+        }
+    }
+
+    private String commitInfo(RevCommit revCommit) {
+        return "    "
+                + Instant.ofEpochMilli(revCommit.getCommitTime()*1000L).toString()
+                + ": "+revCommit.getId();
+    }
+
     /*
     private Collection<String> getTags(final Git git, final ObjectId objectId, final RevWalk finalWalk) throws GitAPIException {
         return git.tagList().call()
@@ -120,66 +128,66 @@ public class App {
                 .collect(Collectors.toList());
     }*/
 
-    public void dummy() throws Exception {
-        // This code would allow to access an existing repository
-//      try (Git git = Git.open(new File("/home/vogella/git/eclipse.platform.ui"))) {
-//          Repository repository = git.getRepository();
+//    public void dummy() throws Exception {
+//        // This code would allow to access an existing repository
+////      try (Git git = Git.open(new File("/home/vogella/git/eclipse.platform.ui"))) {
+////          Repository repository = git.getRepository();
+////
+////      }
 //
-//      }
-
-        File localPath = File.createTempFile("JGitTestRepository", "");
-        // Create the git repository with init
-        try (Git git = Git.init().setDirectory(localPath).call()) {
-            System.out.println("Created repository: " + git.getRepository().getDirectory());
-            File myFile = new File(git.getRepository().getDirectory().getParent(), "testfile");
-            if (!myFile.createNewFile()) {
-                throw new IOException("Could not create file " + myFile);
-            }
-
-            // run the add-call
-            git.add().addFilepattern("testfile").call();
-
-            git.commit().setMessage("Initial commit").call();
-            System.out.println("Committed file " + myFile + " to repository at " + git.getRepository().getDirectory());
-            // Create a few branches for testing
-            for (int i = 0; i < 10; i++) {
-                git.checkout().setCreateBranch(true).setName("new-branch" + i).call();
-            }
-            // List all branches
-            List<Ref> call = git.branchList().call();
-            for (Ref ref : call) {
-                System.out.println("Branch: " + ref + " " + ref.getName() + " " + ref.getObjectId().getName());
-            }
-
-            // Create a few new files
-            for (int i = 0; i < 10; i++) {
-                File f = new File(git.getRepository().getDirectory().getParent(), "testfile" + i);
-                f.createNewFile();
-                if (i % 2 == 0) {
-                    git.add().addFilepattern("testfile" + i).call();
-                }
-            }
-
-            Status status = git.status().call();
-
-            Set<String> added = status.getAdded();
-            for (String add : added) {
-                System.out.println("Added: " + add);
-            }
-            Set<String> uncommittedChanges = status.getUncommittedChanges();
-            for (String uncommitted : uncommittedChanges) {
-                System.out.println("Uncommitted: " + uncommitted);
-            }
-
-            Set<String> untracked = status.getUntracked();
-            for (String untrack : untracked) {
-                System.out.println("Untracked: " + untrack);
-            }
-
-            // Find the head for the repository
-            ObjectId lastCommitId = git.getRepository().resolve(Constants.HEAD);
-            System.out.println("Head points to the following commit :" + lastCommitId.getName());
-        }
-
-    }
+//        File localPath = File.createTempFile("JGitTestRepository", "");
+//        // Create the git repository with init
+//        try (Git git = Git.init().setDirectory(localPath).call()) {
+//            System.out.println("Created repository: " + git.getRepository().getDirectory());
+//            File myFile = new File(git.getRepository().getDirectory().getParent(), "testfile");
+//            if (!myFile.createNewFile()) {
+//                throw new IOException("Could not create file " + myFile);
+//            }
+//
+//            // run the add-call
+//            git.add().addFilepattern("testfile").call();
+//
+//            git.commit().setMessage("Initial commit").call();
+//            System.out.println("Committed file " + myFile + " to repository at " + git.getRepository().getDirectory());
+//            // Create a few branches for testing
+//            for (int i = 0; i < 10; i++) {
+//                git.checkout().setCreateBranch(true).setName("new-branch" + i).call();
+//            }
+//            // List all branches
+//            List<Ref> call = git.branchList().call();
+//            for (Ref ref : call) {
+//                System.out.println("Branch: " + ref + " " + ref.getName() + " " + ref.getObjectId().getName());
+//            }
+//
+//            // Create a few new files
+//            for (int i = 0; i < 10; i++) {
+//                File f = new File(git.getRepository().getDirectory().getParent(), "testfile" + i);
+//                f.createNewFile();
+//                if (i % 2 == 0) {
+//                    git.add().addFilepattern("testfile" + i).call();
+//                }
+//            }
+//
+//            Status status = git.status().call();
+//
+//            Set<String> added = status.getAdded();
+//            for (String add : added) {
+//                System.out.println("Added: " + add);
+//            }
+//            Set<String> uncommittedChanges = status.getUncommittedChanges();
+//            for (String uncommitted : uncommittedChanges) {
+//                System.out.println("Uncommitted: " + uncommitted);
+//            }
+//
+//            Set<String> untracked = status.getUntracked();
+//            for (String untrack : untracked) {
+//                System.out.println("Untracked: " + untrack);
+//            }
+//
+//            // Find the head for the repository
+//            ObjectId lastCommitId = git.getRepository().resolve(Constants.HEAD);
+//            System.out.println("Head points to the following commit :" + lastCommitId.getName());
+//        }
+//
+//    }
 }
