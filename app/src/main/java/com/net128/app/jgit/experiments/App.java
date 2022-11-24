@@ -11,7 +11,9 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.treewalk.TreeWalk;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,11 +58,14 @@ public class App {
             git.commit().setMessage("Reverted to initial version").call();
             git.tag().setName("Version-3").setForceUpdate(true).call();
 
+            delimiter();
             showTagCommits(git);
-
+            delimiter();
             showFileCommits(git, "csv/CAR.csv");
             showFileCommits(git, "csv/CITY.csv");
             showFileCommits(git, "csv/COUNTRY_CODES.csv");
+            delimiter();
+            showFiles(git, "HEAD");
         }
     }
 
@@ -73,7 +78,7 @@ public class App {
     }
 
     private void showFileCommits(Git git, String filePath) throws IOException, GitAPIException {
-        System.out.println("\nFile Commits: "+filePath);
+        System.out.println("File Commits: "+filePath);
         LogCommand logCommand = git.log()
                 .add(git.getRepository().resolve(Constants.HEAD))
                 .addPath(filePath);
@@ -85,7 +90,7 @@ public class App {
 
     private void showTagCommits(Git git) throws IOException, GitAPIException {
         Repository repository = git.getRepository();
-        System.out.print("\nTag Commits");
+        System.out.print("Tag Commits");
         List<Ref> call = git.tagList().call();
         for (Ref ref : call) {
             System.out.println("\n    Tag: " + ref.getName() + " " + ref.getObjectId().getName());
@@ -106,9 +111,35 @@ public class App {
         }
     }
 
+    private void showFiles(Git git, String ref) throws IOException {
+        System.out.println("Files from: "+ref);
+        var repository = git.getRepository();
+        var head = repository.getRefDatabase().findRef(ref);
+        var walk = new RevWalk(repository);
+
+        var commit = walk.parseCommit(head.getObjectId());
+        var tree = commit.getTree();
+
+        var treeWalk = new TreeWalk(git.getRepository());
+        treeWalk.addTree(tree);
+        treeWalk.setRecursive(false);
+        while (treeWalk.next()) {
+            if (treeWalk.isSubtree()) {
+                System.out.println(treeWalk.getPathString()+"/");
+                treeWalk.enterSubtree();
+            } else {
+                System.out.println(treeWalk.getPathString());
+            }
+        }
+    }
+
     private String commitInfo(RevCommit revCommit) {
         return "    "
-                + Instant.ofEpochMilli(revCommit.getCommitTime()*1000L).toString()
-                + ": "+revCommit.getId();
+            + Instant.ofEpochMilli(revCommit.getCommitTime()*1000L).toString()
+            + ": "+revCommit.getId();
+    }
+
+    private void delimiter() {
+        System.out.println("\n------------------------------------------------\n");
     }
 }
