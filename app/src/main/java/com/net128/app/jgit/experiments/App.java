@@ -4,14 +4,11 @@
 package com.net128.app.jgit.experiments;
 
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Constants;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.treewalk.TreeWalk;
 
@@ -19,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.Instant;
-import java.util.List;
 
 public class App {
 
@@ -31,25 +27,25 @@ public class App {
         final var gitDirectory = new File(System.getProperty("java.io.tmpdir"), "JGitTestRepository");
         final var csvDest = new File(gitDirectory,"csv");
         ResourceUtils.deleteDirectory(gitDirectory);
-        try (Git git = Git.init().setDirectory(gitDirectory).call()) {
+        try (var git = Git.init().setDirectory(gitDirectory).call()) {
             System.out.println("Created repository: " + git.getRepository().getDirectory());
+
+            delimiter();
+            System.out.println("Copying resources from classpath: /csv");
             ResourceUtils.copyResources("/csv",csvDest);
             git.add().addFilepattern(".").call();
             git.commit().setMessage("Initial commit").call();
-            git.tag().setName("Version-0").setForceUpdate(true).call();
-            ObjectId initialCommitId = git.getRepository().resolve(Constants.HEAD);
 
-            Thread.sleep(1000);
-            replaceCsvAndCommit(git,"/csv_mod/CITY.csv", csvDest);
-            git.tag().setName("Version-1").setForceUpdate(true).call();
+            var version = -1;
+            git.tag().setName("Version-"+ ++version).setForceUpdate(true).call();
 
-            Thread.sleep(2000);
-            replaceCsvAndCommit(git,"/csv_mod/COUNTRY_CODES.csv", csvDest);
-            git.tag().setName("Version-2").setForceUpdate(true).call();
+            var initialCommitId = git.getRepository().resolve(Constants.HEAD);
 
-            Thread.sleep(2000);
+            replaceCsvAndCommit(git,"/csv_mod/CITY.csv", csvDest, "Version-"+ ++version);
+            replaceCsvAndCommit(git,"/csv_mod/COUNTRY_CODES.csv", csvDest, "Version-"+ ++version);
             replaceCsvAndCommit(git,"/csv_mod2/COUNTRY_CODES.csv", csvDest);
-            replaceCsvAndCommit(git,"/csv_mod2/CITY.csv", csvDest);
+
+            replaceCsvAndCommit(git,"/csv_mod2/CITY.csv", csvDest, "Version-"+ ++version);
             git.tag().setName("Version-2").setForceUpdate(true).call();
 
             Thread.sleep(2000);
@@ -61,41 +57,51 @@ public class App {
             delimiter();
             showTagCommits(git);
             delimiter();
-            showFileCommits(git, "csv/CAR.csv");
-            showFileCommits(git, "csv/CITY.csv");
-            showFileCommits(git, "csv/COUNTRY_CODES.csv");
-            delimiter();
-            showFiles(git, "HEAD");
+
+            processFiles(git, "HEAD",(f) -> showCommits(git, f));
         }
     }
 
-    private void replaceCsvAndCommit(Git git, String csv, File destDir) throws GitAPIException, IOException, URISyntaxException {
+    private void replaceCsvAndCommit(Git git, String csv, File destDir, String tag) throws GitAPIException, IOException, URISyntaxException, InterruptedException {
+        replaceCsvAndCommit(git, csv, destDir);
+        System.out.println("Setting tag: "+tag);
+        git.tag().setName(tag).setForceUpdate(true).call();
+    }
+
+    private void replaceCsvAndCommit(Git git, String csv, File destDir) throws GitAPIException, IOException, URISyntaxException, InterruptedException {
         var destName = csv.substring(csv.lastIndexOf("/")+1);
-        ResourceUtils.copyResources(csv, new File(destDir, destName));
+        var destFile =  new File(destDir, destName);
+        System.out.println("Committing change to: "+destFile);
+        ResourceUtils.copyResources(csv, destFile);
 
         git.add().addFilepattern(".").call();
+        Thread.sleep(557);
         git.commit().setMessage("Modified "+destName).call();
     }
 
-    private void showFileCommits(Git git, String filePath) throws IOException, GitAPIException {
-        System.out.println("File Commits: "+filePath);
-        LogCommand logCommand = git.log()
+    private void showCommits(Git git, String filePath) {
+        System.out.println("Commits: "+filePath);
+        try {
+            var logCommand = git.log()
                 .add(git.getRepository().resolve(Constants.HEAD))
                 .addPath(filePath);
 
-        for (RevCommit revCommit : logCommand.call()) {
-            System.out.println(commitInfo(revCommit));
+            for (var revCommit : logCommand.call()) {
+                System.out.println(commitInfo(revCommit));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     private void showTagCommits(Git git) throws IOException, GitAPIException {
-        Repository repository = git.getRepository();
+        var repository = git.getRepository();
         System.out.print("Tag Commits");
-        List<Ref> call = git.tagList().call();
+        var call = git.tagList().call();
         for (Ref ref : call) {
             System.out.println("\n    Tag: " + ref.getName() + " " + ref.getObjectId().getName());
 
-            Ref peeledRef = git.getRepository().getRefDatabase().peel(ref);
+            var peeledRef = git.getRepository().getRefDatabase().peel(ref);
 
             ObjectId commitId;
             if(peeledRef.getPeeledObjectId() != null) {
@@ -105,13 +111,13 @@ public class App {
             }
 
             try (RevWalk revWalk = new RevWalk(repository)) {
-                RevCommit commit = revWalk.parseCommit(commitId);
+                var commit = revWalk.parseCommit(commitId);
                 System.out.println("    "+commitInfo(commit));
             }
         }
     }
 
-    private void showFiles(Git git, String ref) throws IOException {
+    private void processFiles(Git git, String ref, Callable callable) throws IOException {
         System.out.println("Files from: "+ref);
         var repository = git.getRepository();
         var head = repository.getRefDatabase().findRef(ref);
@@ -125,10 +131,10 @@ public class App {
         treeWalk.setRecursive(false);
         while (treeWalk.next()) {
             if (treeWalk.isSubtree()) {
-                System.out.println(treeWalk.getPathString()+"/");
                 treeWalk.enterSubtree();
             } else {
-                System.out.println(treeWalk.getPathString());
+                if(callable==null) System.out.println(treeWalk.getPathString());
+                else callable.call(treeWalk.getPathString());
             }
         }
     }
@@ -141,5 +147,9 @@ public class App {
 
     private void delimiter() {
         System.out.println("\n------------------------------------------------\n");
+    }
+
+    public interface Callable {
+        void call(String input);
     }
 }
